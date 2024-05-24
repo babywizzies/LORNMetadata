@@ -134,16 +134,16 @@ export default function Home() {
       <main className="flex-1 p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentPageData.map((item) => (
-            <div key={item.id} className="bg-gray-800 shadow-md rounded-md p-4">
+            <div key={item.id} className="bg-gray-800 shadow-md rounded-md p-4 break-words">
               <img
                 src={`https://renderer.magiceden.dev/v2/render?id=${item.id}`}
                 alt={`Token Image ${item.id}`}
                 className="w-full h-auto"
               />
               <div className="mt-4">
-                <p className="font-semibold">ID: {item.id}</p>
+                <p className="font-semibold break-words">ID: {item.id}</p>
                 {item.meta.attributes.map((attr) => (
-                  <p key={attr.trait_type} className="text-sm text-gray-400">{attr.trait_type}: {attr.value}</p>
+                  <p key={attr.trait_type} className="text-sm text-gray-400 break-words">{attr.trait_type}: {attr.value}</p>
                 ))}
               </div>
             </div>
