@@ -86,19 +86,19 @@ export default function Home() {
   const currentPageData = filteredData.slice((page - 1) * limit, page * limit);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-gray-900 text-gray-200">
       <Head>
         <title>Gallery</title>
         <meta name="description" content="Gallery" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <aside className="w-64 bg-gray-100 p-4 shadow-lg overflow-y-auto">
+      <aside className="w-64 bg-gray-800 p-4 shadow-lg overflow-y-auto">
         {attributeCategories.map((type) => (
           <div key={type} className="mb-4">
             <button
               onClick={() => toggleDropdown(type)}
-              className="w-full text-left font-semibold mb-2 bg-gray-200 p-2 rounded"
+              className="w-full text-left font-semibold mb-2 bg-gray-700 p-2 rounded"
             >
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </button>
@@ -123,7 +123,7 @@ export default function Home() {
         ))}
         <div className="mt-4">
           <label htmlFor="limit" className="font-semibold">Images per page: </label>
-          <select id="limit" value={limit} onChange={handleLimitChange} className="ml-2 p-1 border rounded">
+          <select id="limit" value={limit} onChange={handleLimitChange} className="ml-2 p-1 border rounded bg-gray-700 text-gray-200">
             <option value={10}>10</option>
             <option value={50}>50</option>
             <option value={100}>100</option>
@@ -134,7 +134,7 @@ export default function Home() {
       <main className="flex-1 p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentPageData.map((item) => (
-            <div key={item.id} className="bg-white shadow-md rounded-md p-4">
+            <div key={item.id} className="bg-gray-800 shadow-md rounded-md p-4">
               <img
                 src={`https://renderer.magiceden.dev/v2/render?id=${item.id}`}
                 alt={`Token Image ${item.id}`}
@@ -143,7 +143,7 @@ export default function Home() {
               <div className="mt-4">
                 <p className="font-semibold">ID: {item.id}</p>
                 {item.meta.attributes.map((attr) => (
-                  <p key={attr.trait_type} className="text-sm text-gray-600">{attr.trait_type}: {attr.value}</p>
+                  <p key={attr.trait_type} className="text-sm text-gray-400">{attr.trait_type}: {attr.value}</p>
                 ))}
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function Home() {
         <div className="mt-6 flex justify-center">
           <button
             onClick={() => setPage(page > 1 ? page - 1 : 1)}
-            className="px-4 py-2 bg-gray-300 rounded mr-2"
+            className="px-4 py-2 bg-gray-700 rounded mr-2"
             disabled={page <= 1}
           >
             Previous
@@ -160,7 +160,7 @@ export default function Home() {
           <span className="px-4 py-2">Page {page} of {totalPages}</span>
           <button
             onClick={() => setPage(page < totalPages ? page + 1 : totalPages)}
-            className="px-4 py-2 bg-gray-300 rounded ml-2"
+            className="px-4 py-2 bg-gray-700 rounded ml-2"
             disabled={page >= totalPages}
           >
             Next
