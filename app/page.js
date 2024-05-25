@@ -24,11 +24,33 @@ export default function Home() {
     let result = data;
     Object.keys(filters).forEach((key) => {
       if (filters[key].length > 0) {
-        result = result.filter((item) =>
-          item.meta.attributes.some(
-            (attr) => attr.trait_type === key && filters[key].includes(attr.value)
-          )
-        );
+        if (key === 'noArmor' && filters[key][0]) {
+          result = result.filter((item) =>
+            !item.meta.attributes.some(attr => attr.trait_type === 'armor')
+          );
+        } else if (key === 'noHelmet' && filters[key][0]) {
+          result = result.filter((item) =>
+            !item.meta.attributes.some(attr => attr.trait_type === 'helmet')
+          );
+        } else if (key === 'noMask' && filters[key][0]) {
+          result = result.filter((item) =>
+            !item.meta.attributes.some(attr => attr.trait_type === 'mask')
+          );
+        } else if (key === 'noWeapon' && filters[key][0]) {
+          result = result.filter((item) =>
+            !item.meta.attributes.some(attr => attr.trait_type === 'weapon')
+          );
+        } else if (key === 'noClothes' && filters[key][0]) {
+          result = result.filter((item) =>
+            !item.meta.attributes.some(attr => attr.trait_type === 'clothes')
+          );
+        } else {
+          result = result.filter((item) =>
+            item.meta.attributes.some(
+              (attr) => attr.trait_type === key && filters[key].includes(attr.value)
+            )
+          );
+        }
       }
     });
     setFilteredData(result);
@@ -77,6 +99,14 @@ export default function Home() {
     "under"
   ];
 
+  const additionalFilters = [
+    { name: 'No Armor', key: 'noArmor' },
+    { name: 'No Helmet', key: 'noHelmet' },
+    { name: 'No Mask', key: 'noMask' },
+    { name: 'No Weapon', key: 'noWeapon' },
+    { name: 'No Clothes', key: 'noClothes' }
+  ];
+
   const handleLimitChange = (e) => {
     setLimit(Number(e.target.value));
     setPage(1); // Reset to first page when limit changes
@@ -121,6 +151,21 @@ export default function Home() {
             )}
           </div>
         ))}
+        <div className="mb-4">
+          {additionalFilters.map((filter) => (
+            <div key={filter.key} className="mb-1">
+              <input
+                type="checkbox"
+                id={filter.key}
+                name={filter.key}
+                value="true"
+                onChange={handleFilterChange}
+                className="mr-2"
+              />
+              <label htmlFor={filter.key}>{filter.name}</label>
+            </div>
+          ))}
+        </div>
         <div className="mt-4">
           <label htmlFor="limit" className="font-semibold">Images per page: </label>
           <select id="limit" value={limit} onChange={handleLimitChange} className="ml-2 p-1 border rounded bg-gray-700 text-gray-200">
