@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				hair: new Set(),
 				mask: new Set(),
 				under: new Set(),
+				front: new Set(),
+				"great ones": new Set(),
 			};
 
 			// Gather unique values for each attribute type
