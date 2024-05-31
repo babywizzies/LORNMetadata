@@ -100,15 +100,16 @@ export default function Home() {
 		}));
 	};
 
-	const uniqueAttributes = (type) => [
-		...new Set(
-			data.flatMap((item) =>
-				item.meta.attributes
-					.filter((attr) => attr.trait_type === type)
-					.map((attr) => attr.value)
-			)
-		),
-	];
+	const uniqueAttributes = (type) =>
+		[
+			...new Set(
+				data.flatMap((item) =>
+					item.meta.attributes
+						.filter((attr) => attr.trait_type === type)
+						.map((attr) => attr.value)
+				)
+			),
+		].sort();
 
 	const attributeCategories = [
 		"alignment",
@@ -213,12 +214,18 @@ export default function Home() {
 					{currentPageData.map((item) => (
 						<div
 							key={item.id}
-							className="bg-gray-800 shadow-md rounded-md p-4 break-words"
+							className="bg-gray-800 shadow-md rounded-md p-4 break-words cursor-pointer"
 						>
 							<img
 								src={`https://renderer.magiceden.dev/v2/render?id=${item.id}`}
 								alt={`Token Image ${item.id}`}
 								className="w-full h-auto"
+								onClick={() =>
+									window.open(
+										`https://ord-mirror.magiceden.dev/content/${item.id}`,
+										"_blank"
+									)
+								}
 							/>
 							<div className="mt-4">
 								<p className="font-semibold break-words">ID: {item.id}</p>
